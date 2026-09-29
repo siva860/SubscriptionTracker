@@ -1,0 +1,59 @@
+:root{--ink:#1d2a38;--paper:#edf2f4;--card:#fff;--line:#d3dde2;--muted:#5d6e7c;
+--ok:#2e7d5b;--overlap:#c98a00;--idle:#c8372d;--radius:6px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 "Schibsted Grotesk",system-ui,sans-serif}
+:focus-visible{outline:3px solid #2b6cb0;outline-offset:2px}
+[hidden]{display:none!important}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+header{background:var(--ink);color:#fff;padding:34px 0 0}
+h1{font-size:clamp(1.6rem,4vw,2.6rem);line-height:1.1;font-weight:900;margin:0 0 6px;max-width:24ch}
+header p{margin:0;color:#b9c7d3}
+.leak{display:flex;height:22px;border-radius:var(--radius);overflow:hidden;margin:22px 0 10px;background:#3a4b5c}
+.leak span{display:block;min-width:0}
+.legend{display:flex;flex-wrap:wrap;gap:6px 22px;font-size:.9rem;color:#dbe5ec}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+nav{display:flex;gap:4px;margin-top:22px}
+nav button{background:none;border:0;color:#b9c7d3;padding:10px 16px;border-radius:var(--radius) var(--radius) 0 0;font-weight:500}
+nav button[aria-selected=true]{background:var(--paper);color:var(--ink);font-weight:700}
+main{padding:24px 20px 60px}
+h2{font-size:1.1rem;margin:0 0 8px}
+.hint{color:var(--muted);font-size:.9rem;margin:0 0 8px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+@media(max-width:860px){.grid2{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+button,.btn{font:inherit;cursor:pointer;border-radius:var(--radius);border:1px solid var(--ink);background:#fff;color:var(--ink);padding:6px 12px;text-decoration:none;display:inline-block}
+button.primary{background:var(--ink);color:#fff;font-weight:700}
+button.link{border:0;background:none;padding:2px 6px;color:#2b6cb0;text-decoration:underline}
+button.link.danger{color:var(--idle)}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;align-items:center}
+.toolbar .spacer{flex:1}
+input,select{font:inherit;padding:7px 9px;border:1px solid #9fb1bd;border-radius:var(--radius);background:#fff}
+.tablewrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:var(--radius)}
+table{border-collapse:collapse;width:100%;min-width:760px}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.85rem;color:var(--muted);font-weight:500}
+tr:last-child td{border-bottom:0}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+tr.gone td{opacity:.55}
+.sub small{display:block;color:var(--muted)}
+.tag{display:inline-block;padding:1px 8px;border-radius:99px;font-size:.8rem;font-weight:700;color:#fff;margin-right:4px}
+.tag.Overlap{background:var(--overlap)}.tag.Idle{background:var(--idle)}.tag.ok{background:var(--ok)}.tag.off{background:#7b8a96}
+.catrow{margin:10px 0}
+.catrow .top{display:flex;justify-content:space-between;font-size:.95rem}
+.catrow .track{height:8px;background:var(--line);border-radius:4px;margin-top:4px}
+.catrow .fill{height:100%;background:var(--ink);border-radius:4px}
+ul.plain{list-style:none;margin:0;padding:0}
+ul.plain li{padding:10px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;align-items:center}
+ul.plain li:first-child{border-top:0}
+.muted{color:var(--muted)}
+dialog{border:0;border-radius:var(--radius);padding:22px;width:min(460px,94vw)}
+dialog::backdrop{background:rgba(29,42,56,.55)}
+dialog h2{margin-bottom:14px}
+label{display:block;font-size:.9rem;margin-bottom:10px}
+label input,label select{display:block;width:100%;margin-top:3px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.err{color:var(--idle);font-size:.9rem;min-height:1.2em}
+.actions{display:flex;justify-content:flex-end;gap:8px;margin-top:8px}
+#toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:var(--radius);opacity:0;pointer-events:none;transition:opacity .2s}
+#toast.show{opacity:1}
+@media(prefers-reduced-motion:reduce){#toast{transition:none}}

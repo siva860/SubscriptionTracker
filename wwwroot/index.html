@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Subscription Overlap & Waste Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header><div class="wrap">
+  <h1 id="headline">Loading your subscriptions…</h1>
+  <p id="sub"></p>
+  <div class="leak" id="leak" role="img" aria-label="Monthly spend split into worth keeping, overlapping and idle"></div>
+  <div class="legend">
+    <span><i style="background:var(--ok)"></i>Worth keeping <b id="lk"></b></span>
+    <span><i style="background:var(--overlap)"></i>Overlapping <b id="lo"></b></span>
+    <span><i style="background:var(--idle)"></i>Idle <b id="li"></b></span>
+  </div>
+  <nav role="tablist" aria-label="Views">
+    <button role="tab" data-tab="dashboard" aria-selected="true">Dashboard</button>
+    <button role="tab" data-tab="subs" aria-selected="false">Subscriptions</button>
+    <button role="tab" data-tab="savings" aria-selected="false">Savings</button>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <section id="dashboard" class="view">
+    <div class="grid2">
+      <div class="panel"><h2>Monthly spend by category</h2><div id="cats"></div></div>
+      <div class="panel"><h2>Renewing in the next 14 days</h2><div id="renewals"></div></div>
+    </div>
+  </section>
+
+  <section id="subs" class="view" hidden>
+    <div class="toolbar">
+      <input id="q" type="search" placeholder="Search name or category" aria-label="Search">
+      <select id="fcat" aria-label="Category"><option value="">All categories</option></select>
+      <select id="fstatus" aria-label="Status">
+        <option value="active">Active</option><option value="cancelled">Cancelled</option><option value="all">All</option>
+      </select>
+      <span class="spacer"></span>
+      <a class="btn" href="/api/export.csv" download>Export CSV</a>
+      <button class="primary" id="add">Add subscription</button>
+    </div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Name</th><th class="num">Per month</th><th class="num">Uses (30 days)</th><th>Last used</th><th>Renews</th><th>Status</th><th></th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
+  </section>
+
+  <section id="savings" class="view" hidden>
+    <div class="grid2">
+      <div class="panel"><h2>Overlapping subscriptions</h2><p class="hint">Two or more active subscriptions in the same category. The most-used one is kept.</p><div id="overlaps"></div></div>
+      <div class="panel"><h2>Idle subscriptions</h2><p class="hint">No use logged in 30 days, or one use or fewer.</p><div id="idle"></div></div>
+    </div>
+  </section>
+</main>
+
+<dialog id="dlg"><form method="dialog" id="form" novalidate>
+  <h2 id="dtitle">Add subscription</h2>
+  <label>Name<input name="name" required maxlength="100"></label>
+  <label>Category<input name="category" list="catlist" placeholder="e.g. Streaming" required></label>
+  <datalist id="catlist"></datalist>
+  <div class="row">
+    <label>Cost<input name="cost" type="number" min="0" step="0.01" required></label>
+    <label>Billed<select name="cycle"><option>Monthly</option><option>Weekly</option><option>Quarterly</option><option>Yearly</option></select></label>
+  </div>
+  <label>Next renewal<input name="nextRenewal" type="date" required></label>
+  <label>Notes<input name="notes" maxlength="200"></label>
+  <div class="err" id="err" role="alert"></div>
+  <div class="actions"><button type="button" id="cancel">Cancel</button><button class="primary" type="submit">Save subscription</button></div>
+</form></dialog>
+
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>
